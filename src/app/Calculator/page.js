@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 export default function Home() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState();
   const [value1, setValue1] = useState();
   const [value2, setValue2] = useState();
   const [result, setRes] = useState();
@@ -48,13 +48,23 @@ export default function Home() {
     } else {
       setValue1(text);
     }
+    setAdd(true)
+    setMul(false)
+    setSub(false)
+    setDiv(false)
     setText("");
   }
   function Bsub() {
-    setText(text + "-");
+    setAdd(false)
+    setMul(false)
+    setSub(true)
+    setDiv(false)
   }
   function Bmul() {
-    setText(text + "*");
+    setAdd(false)
+    setMul(true)
+    setSub(false)
+    setDiv(false)
   }
   function Bdiv() {
     if (value1) {
@@ -63,11 +73,17 @@ export default function Home() {
     } else {
       setValue1(text);
     }
+    setAdd(false)
+    setMul(false)
+    setSub(false)
+    setDiv(true)
     setText("");
   }
   function equal() {
     if (div) {
       setRes(value1 / text);
+    }else if (add){
+      setRes(Number(value1 + text))
     }
     console.log(Number(result));
     setText(result);
@@ -77,10 +93,11 @@ export default function Home() {
     setValue1("");
     setValue2("");
   }
+  console.log(add + mul + sub + div);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="p-5 grid grid-cols-4 justify-center items-center bg-slate-400 text-4xl">
-        <p>{value1}</p>
+        <p>{value1} and {value2}</p>
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
